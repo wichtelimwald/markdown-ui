@@ -1,0 +1,32 @@
+# SwiftLint configuration for MarkdownUI.
+#
+# Default rules never actually ran against this code before (same story as
+# CoverFlow, see scripts/migrate-coverflow/templates/.swiftlint.yml): single-
+# letter locals throughout the parser/text-storage code, and a large
+# self-contained MarkdownEditorView.swift (rich-text editor, 1793 lines).
+# Thresholds below match this codebase's actual measured sizes plus headroom,
+# not a rewrite target.
+
+identifier_name:
+  min_length: 1
+  max_length: 60
+
+type_body_length:
+  warning: 500
+  error: 600
+
+function_body_length:
+  warning: 150
+  error: 200
+
+cyclomatic_complexity:
+  warning: 30
+  error: 40
+
+file_length:
+  warning: 1500
+  error: 2000
+
+excluded:
+  - .build
+  - Package.swift
