@@ -1,0 +1,28 @@
+version: 2
+
+# Single-package repo: monitor the root Swift package and the GitHub Actions
+# used by its own workflows only. This overrides (via the swift-package-
+# templates overlay, which runs after manifest.txt's copy-file step) the
+# mono-repo's own .github/dependabot.yml, which the manifest otherwise copies
+# in verbatim — that file has per-directory entries for mono-repo-only
+# projects (/toogether, /toogether-app, /template-project, ...) that don't
+# exist in a spun-off single-package repo, so those update checks fail every
+# week (found 2026-08-12 on wichtelimwald/shared-ui, red since 2026-05-31).
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "swift"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
